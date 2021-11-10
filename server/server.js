@@ -23,6 +23,11 @@ const { Quote } = require("./models/Quote");
 // Middleware
 const { auth } = require("./middleware/auth");
 
+app.use(express.static("../client/build/"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
+
 // @route    POST /api/admin/login
 // @desc     admin logins to be allowed manager
 // @access   private
