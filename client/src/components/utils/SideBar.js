@@ -8,7 +8,7 @@ const SideBar = ({ barOptions }) => {
     <div className="side-bar">
       <div className="side-bar__wrapper">
         {barOptions.map((o) => (
-          <div className="side-bar__option">
+          <div key={o} className="side-bar__option">
             <button
               className="button button--side-bar"
               onClick={() => {

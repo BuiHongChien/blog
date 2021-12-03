@@ -8,8 +8,9 @@ import {
   GiSmart,
   GiTreeBranch,
   GiCommercialAirplane,
-  GiBodyBalance,
+  GiBodyBalance
 } from "react-icons/gi";
+import {MdOutlineSportsTennis} from "react-icons/md";
 import { IoLanguage } from "react-icons/io5";
 import { HiOutlineMail } from "react-icons/hi";
 import {
@@ -33,7 +34,7 @@ const skills = [
   "creativity skills",
 ];
 
-const langs = ["vietnam:5/5", "usa:3/5", "russian-federation:2/5"];
+const langs = ["vietnam:5/5", "usa:3/5", "china:2.5/5", "russian-federation:2/5"];
 
 const prolang = [
   "javascript",
@@ -226,7 +227,7 @@ const Resume = () => {
           <div className="grid__item--left">
             <div className="resume__detail">
               <div className="resume__hobby">
-                <GiSmart className="icon icon--small" /> Art
+                <MdOutlineSportsTennis className="icon icon--small" /> Badminton
               </div>
               <div className="resume__hobby">
                 <GiBodyBalance className="icon icon--small" />

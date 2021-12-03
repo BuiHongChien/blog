@@ -1,6 +1,37 @@
 @import "./variables";
 @import './animation';
 
+.input{
+  border:none;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: rgba($color-white, .5);
+  color: rgba($color-primary-dark, 1);
+  font-size: 1.8rem;
+  text-align: center;
+  font-family: 'Source Code Pro', monospace;
+
+  &__login{
+    width: 70%;
+  }
+
+  &:focus{
+    background-color: rgba($color-white, .65);
+    outline: none;
+  }
+
+  &__upload{
+    width: 40rem;
+    text-align: left !important;
+  }
+
+  &__textarea{
+    height: 15rem;
+    resize: none;
+  }
+  
+}
+
 .avatar {
   border: solid 0.5rem rgba($color-primary-dark, 1);
 

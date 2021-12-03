@@ -9,8 +9,9 @@ const Quotes = () => {
 
   useEffect(() => {
     const getData = () => {
-      return axios.get("/api/quotes").then((res) => {
+      return axios.get("http://localhost:5000/api/quotes").then((res) => {
         return res.data;
+        
       });
     };
 

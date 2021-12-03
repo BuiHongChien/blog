@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Avt from "./Avt";
@@ -7,7 +7,7 @@ const pages = ["home", "about", "resume", "more"];
 
 const Menu = ({ page }) => {
   const history = useHistory();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(null);
   const options = pages.filter((p) => p !== page);
 
   const renderMenuOptions = () => {
@@ -42,16 +42,18 @@ const Menu = ({ page }) => {
     );
   };
 
+
   return (
     <div className="menu">
       <div className="menu__wrapper">
         <div className="menu__position">
-          {openMenu ? renderMenuOptions() : closeMenuOptions()}
+          {openMenu===null ? null : (openMenu?renderMenuOptions() : closeMenuOptions())}
           <div
             className="menu__avatar menu__item menu__item--opened"
             onClick={() => {
-              setOpenMenu(!openMenu);
-              console.log("menu button clicked");
+              if(openMenu===null) setOpenMenu(true)
+              else setOpenMenu(!openMenu);
+              console.log("menu button clicked "+openMenu);
             }}
           >
             <Avt size="small" />

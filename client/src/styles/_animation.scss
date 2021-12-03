@@ -11,6 +11,17 @@
   }
 }
 
+@keyframes move-down-login {
+  0% {
+    transform: translateY(-5rem);
+    z-index: 11;
+  }
+  100% {
+    transform: translateY(30vh);
+    z-index: 11;
+  }
+}
+
 @keyframes move-up {
   0% {
     transform: translateY(9rem);

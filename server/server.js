@@ -5,14 +5,24 @@ const { urlencoded } = require("body-parser");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const cors = require("cors");
 
-require("dotenv").config({path:__dirname+'/.env'});
-const {connectDB}=require('./config/db')
+require("dotenv").config({ path: __dirname + "/.env" });
+const { connectDB } = require("./config/db");
 connectDB();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+const corsOpts = {
+  origin: "*",
+  credentials: true,
+  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type"],
+  exposedHeaders: ["Content-Type"],
+};
+app.use(cors(corsOpts));
 
 mongoose.Promise = global.Promise;
 
@@ -76,10 +86,24 @@ app.get("/api/blogs", async (req, res) => {
   }
 });
 
-// @route    POST /api/blogs
+app.get("/api/blog", async (req, res) => {
+  try {
+    const id = req.query.blogid;
+
+    Blog.find({ _id: id }).exec((err, doc) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).send(doc);
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server blogs error");
+  }
+});
+
+// @route    POST /api/blog
 // @desc     post a new blog
 // @access   private
-app.post("/api/admin/blogs", auth, (req, res) => {
+app.post("/api/admin/blog", auth, (req, res) => {
   const blog = new Blog(req.body);
 
   blog.save((err, doc) => {
@@ -108,16 +132,24 @@ app.get("/api/quotes", async (req, res) => {
   }
 });
 
-// @route    POST /api/quotes
+// @route    POST /api/quote
 // @desc     post a new quote
 // @access   private
-app.post("/api/admin/quotes", auth, (req, res) => {
-  const quote = new Quote(req.body);
+app.post("/api/admin/quote", auth, (req, res) => {
+  try {
+    let { content, author } = req.body;
+    console.log("it works");
+    if (content === "" || author === "")
+      return res.status(400).json({ msg: "Not all fields have been entered" });
 
-  quote.save((err, doc) => {
-    if (err) res.json({ success: false, err });
-    else res.status(200).json({ success: true, doc });
-  });
+    const quote = new Quote({ content, author });
+    quote.save((err, doc) => {
+      if (err) res.json({ success: false, err });
+      else res.status(200).json({ success: true, doc });
+    });
+  } catch (err) {
+    console.error(err);
+  }
 });
 //***********************************************
 
@@ -131,7 +163,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-mongoose.connect(process.env.DB_URI).then(()=>console.log("connected DB"))
+mongoose.connect(process.env.DB_URI).then(() => console.log("connected DB"));
 
 const port = process.env.PORT || 5000;
 

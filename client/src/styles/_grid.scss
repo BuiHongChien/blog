@@ -6,6 +6,15 @@
   width: auto;
   display: grid;
   text-align: center;
+  
+
+  &--form{
+    grid-template-columns: auto auto;
+    row-gap: 3rem;
+    column-gap: 4rem;
+    text-align: left;
+    margin-bottom: 3rem;
+  }
 
   &--blogs{
     margin: 4rem 1rem;

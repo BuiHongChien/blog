@@ -10,7 +10,7 @@ const Blogs = () => {
 
   useEffect(() => {
     const getData = () => {
-      return axios.get("/api/blogs").then((res) => {
+      return axios.get("http://localhost:5000/api/blogs").then((res) => {
         return res.data;
       });
     };
@@ -22,12 +22,8 @@ const Blogs = () => {
 
   const renderedBlogs = () =>
     blogs.map((b) => {
-      console.log(b);
       return (
-        <a
-          // <Link to={`/more/blogs/${b._id}`} > UPDATE LATER!!!
-
-          href={b.url}
+        <Link to={`/more/blogs/${b._id}`}
           target="__blank"
           className='blogs__link'
         >
@@ -40,7 +36,7 @@ const Blogs = () => {
             />
             <div className="blogs__title">{b.title}</div>
           </div>
-        </a>
+        </Link>
       );
     });
 
